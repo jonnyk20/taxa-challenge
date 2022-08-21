@@ -1,5 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+
+const EMAIL_SUBJECT = encodeURI('Taxa Challenge');
 
 const ProjectInfo = () => (
   <div className="project-info text-small">
@@ -20,7 +21,16 @@ const ProjectInfo = () => (
     </p>
     <p>
       You can find my code &nbsp;
-      <a href="https://github.com/jonnyk20/one-click-quiz">here</a>
+      <a href="https://github.com/jonnyk20/taxa-challenge">here</a>
+    </p>
+    <p>
+     And if you have questions or notice something broken please reach out to me &nbsp;
+     <a
+        className="text-light-color"
+        href={`mailto:jonnyk_78@hotmail.com?subject=${EMAIL_SUBJECT}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >here</a>
     </p>
   </div>
 );

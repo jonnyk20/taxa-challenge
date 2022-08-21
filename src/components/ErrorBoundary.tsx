@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EMAIL_SUBJECT = encodeURI('1 Click Quiz - Error');
+const EMAIL_SUBJECT = encodeURI('Taxa Challenge');
 
 type PropTypes = any;
 
