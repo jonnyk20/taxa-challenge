@@ -1,0 +1,15 @@
+.planula {
+  height: 150px;
+  width: 150px;
+  position: relative;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}

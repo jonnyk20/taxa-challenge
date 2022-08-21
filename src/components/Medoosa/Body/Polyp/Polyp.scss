@@ -1,0 +1,20 @@
+.polyp {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  transform-origin: 50% 100% 0;
+
+  &__eyes {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 47%;
+    width: 30%;
+    margin: auto;
+
+    .eyes {
+      margin: auto;
+      width: 80%;
+    }
+  }
+}

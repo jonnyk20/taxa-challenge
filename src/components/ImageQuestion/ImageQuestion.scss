@@ -1,0 +1,78 @@
+@import '../../utils/variables.scss';
+
+.image-question {
+  &__prompt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__correct-choice-info {
+      display: inline;
+    }
+
+    &__feedback {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+      font-size: 36px;
+    }
+  }
+
+  &__scoreboard {
+    display: flex;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0 20px;
+    flex-direction: column;
+
+    &__added-score {
+      color: $medium-color;
+    }
+
+    &__scores {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    &__indicator {
+      border: solid 1px;
+      display: flex;
+      margin: 10px;
+    }
+  }
+
+  &__image-container {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 500px;
+
+    @media screen and (max-width: 500px) {
+      max-width: 100vw;
+    }
+
+    .image {
+      position: relative;
+      flex-basis: calc(50%);
+      box-sizing: border-box;
+
+      &:before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
