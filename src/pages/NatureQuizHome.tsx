@@ -26,7 +26,7 @@ const NatrueQuizHome = () => (
       Quiz yourself on
       <div className="mv-20">
         <Link
-          to="/my-observation"
+          to="/my-observations"
           className="text-medium text-light-color flex"
         >
           taxa you've observed
