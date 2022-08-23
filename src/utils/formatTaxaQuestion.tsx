@@ -13,7 +13,7 @@ export const formatTaxaQuestion = (
 
   return {
     ...question,
-    correctAnswerIndex: getRandomIndex(question.choices.length),
+    correctAnswerId: question.choices[getRandomIndex(question.choices.length)].id || 0,
     choices: shuffledChoices.map(c => ({ ...c, photos: shuffle(c.photos) }))
   };
 };

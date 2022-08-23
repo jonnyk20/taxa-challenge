@@ -8,6 +8,7 @@ import { QUIZ_TYPES, QUIZ_TAGS } from '../constants/quizProperties';
 
 const makeImageChoice = (i: number): FormattedChoice => ({
   name: `shark-${i}`,
+  id: Math.floor(Math.random() * 100000),
   details: 'Scientific Name',
   image_url:
     'https://static.scientificamerican.com/blogs/cache/file/2ADE5D5E-8489-4BC6-8AABF71C66ACB9B4_source.jpg'
@@ -15,6 +16,7 @@ const makeImageChoice = (i: number): FormattedChoice => ({
 
 const makeSentenceChoice = (i: number): FormattedChoice => ({
   name: `word-${i}`,
+  id: Math.floor(Math.random() * 100000),
   snippets: [
     {
       snippet: `This text has word-${i} in the middle of it.`,
@@ -32,7 +34,7 @@ const makeSentenceChoice = (i: number): FormattedChoice => ({
 });
 
 const makeImageQuestion = (): FormattedQuestion => ({
-  correctAnswerIndex: 0,
+  correctAnswerId: 0,
   choices: range(0, 1).map(makeImageChoice)
 });
 
@@ -44,7 +46,7 @@ export const sampleImageQuiz: FormattedQuiz = {
 };
 
 const makeSentenceQuestion = (): FormattedQuestion => ({
-  correctAnswerIndex: 0,
+  correctAnswerId: 0,
   choices: range(0, 1).map(makeSentenceChoice)
 });
 

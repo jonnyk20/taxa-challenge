@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from './Button';
 
 const EMAIL_SUBJECT = encodeURI('Taxa Challenge');
 
@@ -40,6 +42,9 @@ class ErrorBoundary extends React.Component<PropTypes, State> {
             >
               email me for help
             </a>
+            <Link to="/" className="text-link">
+              <Button onClick={() => {}}>Or Retry</Button>
+            </Link>
           </div>
         </div>
       );

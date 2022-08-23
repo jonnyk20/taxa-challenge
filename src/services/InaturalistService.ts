@@ -79,6 +79,7 @@ type ObservationPhoto = {
 };
 
 type Observation = {
+
   id: number;
   photos: ObservationPhoto[];
   user: {
@@ -88,6 +89,7 @@ type Observation = {
 
 type ObservationPhotosResponse = {
   results: Observation[];
+  taxonId: number;
 };
 
 export type FormattedObservationPhoto = {
@@ -97,7 +99,7 @@ export type FormattedObservationPhoto = {
 
 export const getObservationPhotosForTaxon = async (
   taxonId: number
-): Promise<any> => {
+): Promise<ObservationPhotosResponse | null> => {
   const params = {
     per_page: 200,
     order_by: 'votes',
@@ -105,11 +107,20 @@ export const getObservationPhotosForTaxon = async (
     taxon_id: taxonId,
   };
 
-  const querystring = encodeQueryString(params);
-  const res = await fetch(`${baseUrl}/observations${querystring}`);
-  const json: ObservationPhotosResponse = await res.json();
+  try {
+    
+    const querystring = encodeQueryString(params);
+    const res = await fetch(`${baseUrl}/observations${querystring}`);
+    const json: ObservationPhotosResponse = await res.json();
 
-  return json;
+    return ({
+      ...json,
+      taxonId
+    });
+  } catch (error) {
+    console.error('Failed to load observation', error)
+    return null
+  }
 };
 
 const combineObservationPhotosForTaxon = (
@@ -131,15 +142,21 @@ const combineObservationPhotosForTaxon = (
 
 export const getObservationPhotosForTaxa = async (
   taxonIds: number[]
-): Promise<FormattedObservationPhoto[][]> => {
-  const observationsResponses: ObservationPhotosResponse[] = await Promise.all(
+): Promise<{ [taxonId: string]: FormattedObservationPhoto[] }> => {
+  const observationsResponses: Array<ObservationPhotosResponse|null> = await Promise.all(
     taxonIds.map(getObservationPhotosForTaxon)
   );
-  const photosForTaxa = observationsResponses.map(
-    combineObservationPhotosForTaxon
-  );
 
-  return photosForTaxa;
+  const taxaPhotosMap:{ [taxonId: string]: FormattedObservationPhoto[] } = {};
+
+  observationsResponses.forEach(res => {
+    if (res !== null) {
+      taxaPhotosMap[res.taxonId] =  combineObservationPhotosForTaxon(res)
+    }
+  });
+
+
+  return taxaPhotosMap;
 };
 
 export const getSuggestedPlaces = async (

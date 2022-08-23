@@ -43,7 +43,7 @@ const Question: React.FC<PropTypes> = ({
   incrementScore,
   modSelections
 }) => {
-  const { choices, correctAnswerIndex } = question;
+  const { choices, correctAnswerId } = question;
   const [state, setState] = useState(states.UNANSWERED);
   const [multiplier, setMultiplier] = useState(MULTIPLIER_START);
   const [addedScore, setAddedScore] = useState(0);
@@ -65,9 +65,9 @@ const Question: React.FC<PropTypes> = ({
     }
   }, [multiplier, state]);
 
-  const answerQuestion = (i: number) => {
+  const answerQuestion = (id: number) => {
     if (isAnswered) return;
-    if (i === correctAnswerIndex) {
+    if (id === correctAnswerId) {
       setState(states.CORRECT);
       incrementCorrectAnswers();
       const addedScore = Math.trunc(MIN_ADDED_SCORE * multiplier);
@@ -80,6 +80,9 @@ const Question: React.FC<PropTypes> = ({
     setMultiplier(MULTIPLIER_START);
   };
 
+  const correctChoice = choices.find(c => c.id === correctAnswerId)
+  const hasCorrectChoice = !!correctChoice;
+
   const moveToNexQuestion = () => {
     incrementQuestion();
     setAddedScore(0);
@@ -90,6 +93,17 @@ const Question: React.FC<PropTypes> = ({
   const isAnsweredCorrectly = state === states.CORRECT;
 
   const answerFeedback = isAnsweredCorrectly ? 'Correct!' : 'So Close!';
+
+  useEffect(() => {
+    if (!hasCorrectChoice) {
+      moveToNexQuestion()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasCorrectChoice])
+
+
+  
+  if (!hasCorrectChoice) return null;
 
   return (
     <div className={BASE_CLASS}>
@@ -121,13 +135,13 @@ const Question: React.FC<PropTypes> = ({
             <div className={`${BASE_CLASS}__prompt__correct-choice-info`}>
               <span>
                 <b className="text-light-color">
-                  {choices[correctAnswerIndex].name}
+                  {correctChoice.name}
                 </b>
               </span>
-              {isNotNilOrEmpty(choices[correctAnswerIndex].details) && (
+              {isNotNilOrEmpty(correctChoice.details) && (
                 <span>
                   <b className="text-light-color">
-                    &nbsp;({choices[correctAnswerIndex].details})
+                    &nbsp;({correctChoice.details})
                   </b>
                 </span>
               )}
@@ -150,14 +164,14 @@ const Question: React.FC<PropTypes> = ({
         )}
       </div>
       <div className={`${BASE_CLASS}__image-container`}>
-        {choices.map(({ image_url, name }, i) => (
+        {choices.map(({ image_url, name, id }, i) => (
           <Image
             key={name}
-            answerQuestion={answerQuestion}
+            answerQuestion={() => answerQuestion(id)}
             i={i}
             image_url={image_url || ''}
             name={name}
-            isCorrect={i === correctAnswerIndex}
+            isCorrect={i === correctAnswerId}
             isAnswered={isAnswered}
           />
         ))}

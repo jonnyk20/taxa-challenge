@@ -9,12 +9,12 @@ export type FormattedChoice = {
   name: string;
   image_url?: string;
   details?: string;
-  id?: number;
+  id: number;
   snippets?: SnippetType[];
 };
 
 export type FormattedQuestion = {
-  correctAnswerIndex: number;
+  correctAnswerId: number;
   choices: FormattedChoice[];
 };
 
@@ -34,7 +34,7 @@ type RawChoice = {
 };
 
 type RawQuestion = {
-  correctAnswerIndex: number;
+  correctAnswerId: number;
   choices: RawChoice[];
 };
 
@@ -53,10 +53,10 @@ const formatChoice = (choice: RawChoice): any => {
 const formatQuestion = (question: RawQuestion): FormattedQuestion => {
   const {
     choices,
-    correctAnswerIndex
-  }: { choices: any; correctAnswerIndex: any } = question;
+    correctAnswerId
+  }: { choices: any; correctAnswerId: any } = question;
   const formattedQuestion = {
-    correctAnswerIndex,
+    correctAnswerId,
     choices: choices.map(formatChoice)
   };
 

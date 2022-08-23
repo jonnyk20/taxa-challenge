@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import TaxaChoice from '../TaxaChoice/TaxaChoice';
 import { FormattedChoice } from '../../utils/formatQuiz';
 import Button from '../Button';
-import MedoosaProgress from '../MedoosaProgress';
 import { isNotNilOrEmpty } from '../../utils/utils';
 import ProgressBar from '../ProgressBar';
 import { FormattedObservationPhoto } from '../../services/InaturalistService';
@@ -25,17 +24,14 @@ type PropTypes = {
   maxCorrectAnswers: number;
   modSelections: any;
   choicesWithPhotos: ChoiceWithPhotos[];
-  correctAnswerIndex: number;
+  correctAnswerId: number;
   areAdditionalImagesFetched: boolean;
   addCurrentQuestionToRedemption: () => void;
   isRedemptionRun: boolean;
 };
 
 const MULTIPLIER_START = 50;
-const MULTIPLIER_END = 1;
 const MIN_ADDED_SCORE = 10;
-const totalTime = 5000;
-const intervalTime = 100;
 
 const BASE_CLASS = 'taxa-question';
 
@@ -53,7 +49,7 @@ const TaxaQuestion: React.FC<PropTypes> = ({
   incrementScore,
   modSelections,
   areAdditionalImagesFetched,
-  correctAnswerIndex,
+  correctAnswerId,
   addCurrentQuestionToRedemption,
   isRedemptionRun
 }) => {
@@ -63,7 +59,7 @@ const TaxaQuestion: React.FC<PropTypes> = ({
   const [loadedImages, setLoadedImages] = useState<Object>({});
 
   const choiceCount = choicesWithPhotos.length;
-  const correctChoice = choicesWithPhotos[correctAnswerIndex];
+  const correctChoice = choicesWithPhotos[correctAnswerId];
   const loadedImagesCount = Object.keys(loadedImages).length;
   const isReady =
     areAdditionalImagesFetched &&
@@ -71,7 +67,7 @@ const TaxaQuestion: React.FC<PropTypes> = ({
 
   const answerQuestion = (i: number) => {
     if (isAnswered) return;
-    if (i === correctAnswerIndex) {
+    if (i === correctAnswerId) {
       setState(states.CORRECT);
       incrementCorrectAnswers();
       let addedScore = Math.trunc(MIN_ADDED_SCORE * multiplier);
@@ -186,7 +182,7 @@ const TaxaQuestion: React.FC<PropTypes> = ({
               i={i}
               image_url={image_url || ''}
               name={name}
-              isCorrect={i === correctAnswerIndex}
+              isCorrect={i === correctAnswerId}
               isAnswered={isAnswered}
               details={details}
               setImageFetched={setImageFetched}

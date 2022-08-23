@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 
 const EMAIL_SUBJECT = encodeURI('Taxa Challenge');
 

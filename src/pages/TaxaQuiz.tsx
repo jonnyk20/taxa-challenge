@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
-import TaxaQuestion from '../components/TaxaQuestion/TaxaQuestion';
+import TaxaQuestion, { ChoiceWithPhotos } from '../components/TaxaQuestion/TaxaQuestion';
 import { FormattedQuiz, FormattedQuestion } from '../utils/formatQuiz';
 import { isNilOrEmpty, isNotNilOrEmpty, pluralize } from '../utils/utils';
 import { sampleImageQuiz } from '../utils/sampleQuiz';
@@ -79,10 +79,21 @@ const TaxaQuiz = () => {
     const addPhotosToChoices = async (question: FormattedQuestion) => {
       const taxonIds = question.choices.map(({ id }) => id || 0);
       const observationPhotos = await getObservationPhotosForTaxa(taxonIds);
-      const taxaWithObservationPhotos = observationPhotos.map((photos, i) => ({
-        ...question.choices[i],
-        photos
-      }));
+      const taxaWithObservationPhotos: ChoiceWithPhotos[] = [];
+      
+      
+      Object.keys(observationPhotos).forEach(taxonId => {
+        const choice = question.choices.find(c => c.id === Number(taxonId));
+        if (!choice) return;
+        
+        const choiceWithPhotos: ChoiceWithPhotos = {
+          ...choice,
+          photos: observationPhotos[taxonId],
+        }
+
+        taxaWithObservationPhotos.push(choiceWithPhotos)
+      })
+
       const questionWithAdditionalPhotos: QuestionWithAdditionalPhotos = {
         ...question,
         choices: taxaWithObservationPhotos
@@ -267,7 +278,7 @@ const TaxaQuiz = () => {
           incrementQuestion={incrementQuestion}
           modSelections={modSelections}
           areAdditionalImagesFetched={areAdditionalImagesFetched}
-          correctAnswerIndex={currentQuestion.correctAnswerIndex}
+          correctAnswerId={currentQuestion.correctAnswerId}
           choicesWithPhotos={currentQuestionWithAdditionalPhotos?.choices || []}
           addCurrentQuestionToRedemption={addCurrentQuestionToRedemption}
           isRedemptionRun={isRedemptionRun}
