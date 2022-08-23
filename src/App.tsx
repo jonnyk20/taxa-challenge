@@ -36,7 +36,7 @@ const App = () => (
               <Route path="/my-observations" element={<MyObservations />} />
               <Route path="/upcoming-features" element={<UpcomingFeatures />} />
               <Route path="/thank-you" element={<ThankYou />} />
-              <Route path="/" element={<TaxaChallenge />} />
+              <Route path="/" element={<NatureQuizHome />} />
             </Routes>
           </Router>
         </div>

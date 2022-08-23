@@ -22,7 +22,6 @@ import SelectionList from '../components/SelectionList/SelectionList';
 import ProgressBar from '../components/ProgressBar';
 import ProjectInfo from '../components/ProjectInfo';
 import { QUIZ_TAGS } from '../constants/quizProperties';
-import MoreFeaturesCTA from '../components/MoreFeaturesCTA';
 import {
   taxaOptions,
   TaxaOptionsType,
@@ -274,7 +273,6 @@ const TaxaChallenge = () => {
       {isNotNilOrEmpty(quiz) && <TaxaQuizInstructions quiz={quiz!} />}
       {!isPlaceReady && (
         <>
-          <MoreFeaturesCTA />
           <ProjectInfo />
         </>
       )}

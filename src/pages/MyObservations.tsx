@@ -8,7 +8,6 @@ import Button from '../components/Button';
 import ProgressBar from '../components/ProgressBar';
 import { QUIZ_TAGS } from '../constants/quizProperties';
 import ProjectInfo from '../components/ProjectInfo';
-import MoreFeaturesCTA from '../components/MoreFeaturesCTA';
 import TaxaQuizInstructions from '../components/TaxaQuizInstructions/TaxaQuizInstructions';
 
 import './MyObservations.scss';
@@ -103,7 +102,6 @@ const MyObservations = () => {
         </div>
       )}
       {isNotNilOrEmpty(quiz) && <TaxaQuizInstructions quiz={quiz!} />}
-      <MoreFeaturesCTA />
       <ProjectInfo />
     </div>
   );

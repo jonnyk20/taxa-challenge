@@ -12,7 +12,6 @@ import Button from '../components/Button';
 import ProgressBar from '../components/ProgressBar';
 import ProjectInfo from '../components/ProjectInfo';
 import { QUIZ_TAGS } from '../constants/quizProperties';
-import MoreFeaturesCTA from '../components/MoreFeaturesCTA';
 import TaxaQuizInstructions from '../components/TaxaQuizInstructions/TaxaQuizInstructions';
 
 import './INatProjects.scss';
@@ -149,7 +148,6 @@ const INatProjects = () => {
       )}
       {!isProjectReady && (
         <>
-          <MoreFeaturesCTA />
           <ProjectInfo />
         </>
       )}
