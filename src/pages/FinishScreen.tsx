@@ -87,9 +87,6 @@ const FinishScreen: React.FC = () => {
     isProjectQuiz;
   const isSentenceQuiz = quiz.quizType === QUIZ_TYPES.SENTENCE_QUIZ;
 
-  const iNaturalizeQuizPath = isMarineLifeQuiz
-    ? '/marine-life'
-    : '/nature-quiz';
 
   const selectColor = (value: number) => {
     const newColorMod = { name: 'color', value };
@@ -158,20 +155,13 @@ const FinishScreen: React.FC = () => {
 
       {isINaturalistQuiz && (
         <div className="mt-20">
-          <Link to={iNaturalizeQuizPath} className="text-link">
+          <Link to="/" className="text-link">
             <Button onClick={() => {}}>Try Again</Button>
           </Link>
         </div>
       )}
 
 
-      {!isMarineLifeQuiz && (
-        <>
-          <div className="mt-20 text-medium">
-            <Link to="/">Home</Link>
-          </div>
-        </>
-      )}
 
       {isSubmitted && (
         <div className="mt-50">

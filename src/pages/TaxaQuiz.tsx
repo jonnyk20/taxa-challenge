@@ -74,7 +74,6 @@ const TaxaQuiz = () => {
     currentQuestionWithAdditionalPhotos
   );
 
-  console.log({ questionsWithAdditionalPhotos })
 
   useEffect(() => {
     const addPhotosToChoices = async (question: FormattedQuestion) => {
@@ -96,7 +95,6 @@ const TaxaQuiz = () => {
 
     const addPhotosToQuestions = async () => {
       const { questions } = quiz;
-      console.log('BBBB')
 
       for (let i = 0; i < questions.length; i ++) {
         const question = questions[i];
@@ -106,10 +104,10 @@ const TaxaQuiz = () => {
 
 
     if (!isEmptyQuiz) {
-      console.log('AAAAAAA')
       addPhotosToQuestions();
     }
-  }, [isEmptyQuiz, quiz, quiz.questions.length]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEmptyQuiz]);
 
   useEffect(() => {
     if (!isNilOrEmpty(location?.state?.quiz)) {
@@ -255,7 +253,7 @@ const TaxaQuiz = () => {
             )})`}</Button>
           </div>
           <div className="mv-20">
-            <Button onClick={finish}>Finish now and submit</Button>
+            <Button onClick={finish}>Finish Now</Button>
           </div>
         </div>
       )}

@@ -8,7 +8,7 @@ const ProjectInfo = () => (
       Built by <a href="https://twitter.com/jonnykalambay">Jonny Kalambay</a>
     </p>
     <p>
-      The <Link to="/taxa-challenge">nature quiz</Link> on this site uses data
+      This site uses data
       from&nbsp;
       <a href="https://www.inaturalist.org/">iNaturalist</a>
     </p>

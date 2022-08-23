@@ -69,23 +69,6 @@ const TaxaQuestion: React.FC<PropTypes> = ({
     areAdditionalImagesFetched &&
     loadedImagesCount === choicesWithPhotos.length;
 
-  useEffect(() => {
-    if (state === states.UNANSWERED && isReady) {
-      const interval: NodeJS.Timeout = setInterval(() => {
-        const decrease = (intervalTime / totalTime) * MULTIPLIER_START;
-        if (multiplier > MULTIPLIER_END) {
-          setMultiplier(Math.max(multiplier - decrease, MULTIPLIER_END));
-          return;
-        }
-        clearInterval(interval);
-      }, intervalTime);
-
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [isReady, multiplier, state]);
-
   const answerQuestion = (i: number) => {
     if (isAnswered) return;
     if (i === correctAnswerIndex) {
@@ -123,18 +106,10 @@ const TaxaQuestion: React.FC<PropTypes> = ({
 
   const answerFeedback = isAnsweredCorrectly ? 'Correct!' : 'So Close!';
 
-  console.log({ choicesWithPhotos })
 
   return (
     <div className={BASE_CLASS}>
       <div className={`${BASE_CLASS}__hud mb-20`}>
-        <MedoosaProgress
-          correctAnswerCount={correctAnswerCount}
-          maxCorrectAnswers={maxCorrectAnswers}
-          modSelections={modSelections}
-          isAnswered={isAnswered}
-          isRedemptionRun={isRedemptionRun}
-        />
 
         <div className={`${BASE_CLASS}__hud__scores`}>
           <div>
