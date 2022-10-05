@@ -13,6 +13,7 @@ const labelBaseClass = `${BASE_CLASS}__label`;
 
 type PropTypes = {
   i: number;
+  id: number;
   image_url: string;
   answerQuestion: (i: number) => void;
   isAnswered: boolean;
@@ -25,6 +26,7 @@ type PropTypes = {
 
 const TaxaChoice: React.FC<PropTypes> = ({
   i,
+  id,
   image_url,
   answerQuestion,
   isAnswered,
@@ -69,7 +71,7 @@ const TaxaChoice: React.FC<PropTypes> = ({
 
 
   return (
-    <div className={BASE_CLASS} onClick={() => answerQuestion(i)}>
+    <div className={BASE_CLASS} onClick={() => answerQuestion(id)}>
       <img
         key={image_url}
         alt="question-choice"

@@ -11,9 +11,11 @@ export const formatTaxaQuestion = (
 ): QuestionWithAdditionalPhotos => {
   const shuffledChoices = shuffle(question.choices) as ChoiceWithPhotos[];
 
+  const correctAnswerId: number = question.choices[getRandomIndex(question.choices.length)].id || 0;
+
   return {
     ...question,
-    correctAnswerId: question.choices[getRandomIndex(question.choices.length)].id || 0,
+    correctAnswerId,
     choices: shuffledChoices.map(c => ({ ...c, photos: shuffle(c.photos) }))
   };
 };

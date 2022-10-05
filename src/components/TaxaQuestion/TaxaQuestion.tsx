@@ -59,15 +59,15 @@ const TaxaQuestion: React.FC<PropTypes> = ({
   const [loadedImages, setLoadedImages] = useState<Object>({});
 
   const choiceCount = choicesWithPhotos.length;
-  const correctChoice = choicesWithPhotos[correctAnswerId];
+  const correctChoice = choicesWithPhotos.find(choice => choice.id === correctAnswerId);
   const loadedImagesCount = Object.keys(loadedImages).length;
   const isReady =
     areAdditionalImagesFetched &&
     loadedImagesCount === choicesWithPhotos.length;
 
-  const answerQuestion = (i: number) => {
+  const answerQuestion = (id: number) => {
     if (isAnswered) return;
-    if (i === correctAnswerId) {
+    if (id === correctAnswerId) {
       setState(states.CORRECT);
       incrementCorrectAnswers();
       let addedScore = Math.trunc(MIN_ADDED_SCORE * multiplier);
@@ -101,6 +101,10 @@ const TaxaQuestion: React.FC<PropTypes> = ({
   const isAnsweredCorrectly = state === states.CORRECT;
 
   const answerFeedback = isAnsweredCorrectly ? 'Correct!' : 'So Close!';
+
+  if (!correctChoice) {
+    return <div className={BASE_CLASS}>Please wait...</div>
+  }
 
 
   return (
@@ -175,14 +179,15 @@ const TaxaQuestion: React.FC<PropTypes> = ({
             !isReady ? `${BASE_CLASS}__choices--hide` : ''
           }`}
         >
-          {choicesWithPhotos.map(({ image_url, name, details, photos }, i) => (
+          {choicesWithPhotos.map(({ image_url, name, details, photos, id }, i) => (
             <TaxaChoice
               key={name}
               answerQuestion={answerQuestion}
               i={i}
+              id={id}
               image_url={image_url || ''}
               name={name}
-              isCorrect={i === correctAnswerId}
+              isCorrect={id === correctAnswerId}
               isAnswered={isAnswered}
               details={details}
               setImageFetched={setImageFetched}

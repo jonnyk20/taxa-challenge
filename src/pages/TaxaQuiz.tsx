@@ -74,7 +74,6 @@ const TaxaQuiz = () => {
     currentQuestionWithAdditionalPhotos
   );
 
-
   useEffect(() => {
     const addPhotosToChoices = async (question: FormattedQuestion) => {
       const taxonIds = question.choices.map(({ id }) => id || 0);
@@ -159,14 +158,6 @@ const TaxaQuiz = () => {
     usedRedemption
   ]);
 
-  const updateModsSelection = () => {
-    const newHeadMod = {
-      name: 'head',
-      value: 0
-    };
-    const newModSelections = [...modSelections.slice(0, 4), newHeadMod];
-    setModSelections(newModSelections);
-  };
 
   const incrementCorrectAnswers = () => {
     const newCorrectAnswersCount = correctAnswerCount + 1;
@@ -181,7 +172,6 @@ const TaxaQuiz = () => {
   const startRedemtpionRun = () => {
     setUsedRedemption(true);
     setQuizState(QUIZ_STATE.REDEMPTION_RUN);
-    updateModsSelection();
   };
 
   const incrementQuestion = () => {

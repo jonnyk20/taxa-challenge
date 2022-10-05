@@ -184,9 +184,12 @@ const buildTaxaQuiz = (options: TaxaQuizOptionsType): FormattedQuiz => {
   const questions = range(0, questionCount).map((i: number) => {
     const choices = shuffledGroups[i];
     const choiceCount = choices.length;
+    const correctAnswerIndex = Math.floor(Math.random() * choiceCount);
+
+    const correctAnswerId = choices[correctAnswerIndex].taxon.id
 
     return {
-      correctAnswerId: Math.floor(Math.random() * choiceCount),
+      correctAnswerId: correctAnswerId,
       choices: choices.map(
         (taxon: Taxon): FormattedChoice => ({
           name: taxon.taxon.preferred_common_name,
